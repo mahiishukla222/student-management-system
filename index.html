@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management System</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    margin: 0;
+    padding: 20px;
+}
+header {
+    background: #243b64;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+.container {
+    max-width: 850px;
+    margin: 25px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+input {
+    padding: 10px;
+    margin: 6px 0;
+    width: 95%;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+button {
+    background: #243b64;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+th { background: #dce6f5; }
+.delete { background: #c0392b; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Student Management System</h1>
+<p>Manage Student Records Easily</p>
+</header>
+
+<div class="container">
+<h2>Add Student Details</h2>
+
+<input id="name" placeholder="Enter Student Name">
+<input id="enrollment" placeholder="Enter Enrollment Number">
+<input id="course" placeholder="Enter Course Name">
+
+<button onclick="addStudent()">Add Student</button>
+
+<h2>Student Records</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Enrollment No.</th>
+<th>Course</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="studentList"></tbody>
+</table>
+</div>
+
+<script>
+function addStudent() {
+    let name = document.getElementById("name").value.trim();
+    let enrollment = document.getElementById("enrollment").value.trim();
+    let course = document.getElementById("course").value.trim();
+
+    if (name === "" || enrollment === "" || course === "") {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    let row = document.createElement("tr");
+
+    [name, enrollment, course].forEach(function(value) {
+        let cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+    });
+
+    let action = document.createElement("td");
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "delete";
+    deleteButton.onclick = function() {
+        row.remove();
+    };
+    action.appendChild(deleteButton);
+    row.appendChild(action);
+
+    document.getElementById("studentList").appendChild(row);
+
+    document.getElementById("name").value = "";
+    document.getElementById("enrollment").value = "";
+    document.getElementById("course").value = "";
+}
+</script>
+
+</body>
+</html>
